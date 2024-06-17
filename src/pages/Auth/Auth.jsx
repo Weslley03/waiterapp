@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SigninSchema } from '../../schemas/SigninSchema.js' 
 import Button from '../../components/Button/Button.jsx'
-import { Link } from 'react-router-dom'
 
 function Auth(){
 
