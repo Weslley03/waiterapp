@@ -14,7 +14,6 @@ html {
 body {
     max-width: 100vw;
     height: 100vh;
-    background-color: #e6e6e6;
     font-family: 'Newsreader', serif;
 }
 `;

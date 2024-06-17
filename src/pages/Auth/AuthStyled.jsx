@@ -5,8 +5,9 @@ export const AuthContainer = styled.section`
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    height: 50vh;
+    height: 70vh;
     width: 70%;
+    padding-top: 5rem;
 
     form{
         display: flex;
@@ -20,8 +21,21 @@ export const DivAcesso = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 55%;
+    width: 60%;
     height: 400px;
+    background-color: #e6e6e6;
+    padding: 2rem;
+    
+    h1{
+        font-size: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    a{
+        padding-top: 5rem;
+        text-decoration: none;
+        color: black;
+    }
 `
 
 export const ErrorSpan = styled.span`
@@ -32,4 +46,16 @@ export const ErrorSpan = styled.span`
     justify-content: center;
     font-size: 0.8;
     border-radius: 7px;
+`
+
+export const DivRadio = styled.div`
+    padding: 1rem;
+
+    input {
+        margin-right: 0.5rem; /* Espaço à direita dos inputs */
+    }
+
+    label {
+        margin-right: 1rem; /* Espaço à direita dos labels */
+    }
 `
