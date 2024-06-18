@@ -5,15 +5,24 @@ import { SignupSchema } from '../../../src/schemas/SignupSchema.js'
 import { Input } from '../../components/Input/Input'
 import { ErrorSpan } from '../Auth/AuthStyled.jsx'
 import Button from '../../components/Button/Button.jsx'
+import { cadastrar } from '../../services/userService.js' 
+import { useNavigate } from 'react-router-dom'
 
 function Cadastrar() {
+
+    const nami = useNavigate();
 
     const { register: signupRegister, handleSubmit: signupHandleSubmit, formState: {errors: signupErrors}} = useForm({
         resolver: zodResolver(SignupSchema) 
       })
 
-      function upHandleSubmit(){
-        //
+      async function upHandleSubmit(data){
+        try{
+            const response = await cadastrar(data)  
+            nami('/home')  
+        }catch(err){
+            console.log(`houve um erro na upHandleSubmit, ${err}`)
+        }
       }
 
     return (
@@ -49,17 +58,32 @@ function Cadastrar() {
                 </form>
 
                 <DivRadio>
-                    <input type="radio" name="radio"/>
+                    <Input 
+                        type="radio" 
+                        name="userCategory"
+                        value='Cliente'
+                        register={signupRegister}
+                    />
                     <label>Cliente</label>
 
-                    <input type="radio" name="radio"/>
+                    <Input 
+                        type="radio" 
+                        name="userCategory"
+                        value='Garsom'
+                        register={signupRegister}
+                    />
                     <label>Garçom</label>
 
-                    <input type="radio" name="radio"/>
+                    <Input 
+                        type="radio" 
+                        name="userCategory"
+                        value='ADM'
+                        register={signupRegister}
+                    />
                     <label>ADM</label>
                 </DivRadio>
-                
-                <a href="http://localhost:5173/"> tenh uma conta </a>
+
+                <a href="http://localhost:5173/auth"> tenho  uma conta </a>
             </DivCadastro>
         </RegisterContainer>
     )

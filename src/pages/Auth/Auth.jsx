@@ -9,16 +9,25 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SigninSchema } from '../../schemas/SigninSchema.js' 
 import Button from '../../components/Button/Button.jsx'
+import { login } from "../../services/userService.js";
+import { useNavigate } from 'react-router-dom'
 
 function Auth(){
+
+    const nami = useNavigate();
 
     const { register: signinRegister, handleSubmit: signinHandleSubmit, formState: {errors: signinErrors}} = useForm({
         resolver: zodResolver(SigninSchema) 
       })
 
 
-      function inHandleSubmit(){
-        //
+      async function inHandleSubmit(data){
+        try{
+            const response = await login(data)
+            nami('/home')  
+        }catch(err){
+            console.log(`houve um erro no inHandleSubmit, ${err}`)
+        }
       }
 
     return(
@@ -46,14 +55,31 @@ function Auth(){
                 </form>
 
                 <DivRadio>
-                    <input type="radio" name="radio"/>
+                    <Input 
+                        type="radio" 
+                        name="userCategory"
+                        value='Cliente'
+                        register={signinRegister}
+                    />
                     <label>Cliente</label>
 
-                    <input type="radio" name="radio"/>
+                    <input  
+                        type="radio" 
+                        name="userCategory"
+                        value='Garsom'
+                        register={signinRegister}
+                    />
                     <label>Garçom</label>
 
-                    <input type="radio" name="radio"/>
+                    <input 
+                        type="radio" 
+                        name="userCategory"
+                        value='ADM'    
+                        register={signinRegister}
+                    />
                     <label>ADM</label>
+
+                    {signinErrors.userCategory && <ErrorSpan> {signinErrors.userCategory.message} </ErrorSpan>}
                 </DivRadio>
 
                  <a href="http://localhost:5173/cadastrar"> quero criar uma conta </a>

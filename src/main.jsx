@@ -4,16 +4,22 @@ import { createBrowserRouter, RouterProvider  } from 'react-router-dom'
 import GlobalStyled from './GlobalStyled'
 import Auth from './pages/Auth/Auth'
 import Cadastrar from './pages/Cadastrar/Cadastrar'
+import Home from './pages/Home/Home'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/auth',
     element: <Auth /> 
   },
 
   {
     path: '/cadastrar',
     element: <Cadastrar /> 
+  },
+  
+  {
+    path: '/home',
+    element: <Home /> 
   }
 ])
 
