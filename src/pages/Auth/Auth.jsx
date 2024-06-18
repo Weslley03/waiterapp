@@ -9,12 +9,15 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SigninSchema } from '../../schemas/SigninSchema.js' 
 import Button from '../../components/Button/Button.jsx'
-import { login } from "../../services/userService.js";
+import { login } from "../../services/authService.js";
 import { useNavigate } from 'react-router-dom'
+import Cookie from 'js-cookie'
+import { useState } from "react";
 
 function Auth(){
 
     const nami = useNavigate();
+    const [ error, setError ] = useState('');
 
     const { register: signinRegister, handleSubmit: signinHandleSubmit, formState: {errors: signinErrors}} = useForm({
         resolver: zodResolver(SigninSchema) 
@@ -24,9 +27,11 @@ function Auth(){
       async function inHandleSubmit(data){
         try{
             const response = await login(data)
+            console.log()
+            Cookie.set('token', response.data.token, {expires: 1})
             nami('/home')  
         }catch(err){
-            console.log(`houve um erro no inHandleSubmit, ${err}`)
+            setError(`houve um erro no inHandleSubmit: ${err.message}`)
         }
       }
 
@@ -81,6 +86,8 @@ function Auth(){
 
                     {signinErrors.userCategory && <ErrorSpan> {signinErrors.userCategory.message} </ErrorSpan>}
                 </DivRadio>
+
+                {error && <ErrorSpan> {error} </ErrorSpan>}
 
                  <a href="http://localhost:5173/cadastrar"> quero criar uma conta </a>
                 

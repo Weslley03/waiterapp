@@ -33,7 +33,6 @@ export const DivCadastro = styled.div`
     }
 
     a{
-        padding-top: 5rem;
         text-decoration: none;
         color: black;
     }

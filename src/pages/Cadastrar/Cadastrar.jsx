@@ -7,6 +7,7 @@ import { ErrorSpan } from '../Auth/AuthStyled.jsx'
 import Button from '../../components/Button/Button.jsx'
 import { cadastrar } from '../../services/userService.js' 
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 function Cadastrar() {
 
@@ -19,6 +20,7 @@ function Cadastrar() {
       async function upHandleSubmit(data){
         try{
             const response = await cadastrar(data)  
+            Cookies.set('token', response.data.token, {expires: 1})
             nami('/home')  
         }catch(err){
             console.log(`houve um erro na upHandleSubmit, ${err}`)
@@ -81,6 +83,8 @@ function Cadastrar() {
                         register={signupRegister}
                     />
                     <label>ADM</label>
+
+                    {signupErrors.userCategory && <ErrorSpan> {signupErrors.userCategory.message} </ErrorSpan>}
                 </DivRadio>
 
                 <a href="http://localhost:5173/auth"> tenho  uma conta </a>

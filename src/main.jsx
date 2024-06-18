@@ -5,6 +5,7 @@ import GlobalStyled from './GlobalStyled'
 import Auth from './pages/Auth/Auth'
 import Cadastrar from './pages/Cadastrar/Cadastrar'
 import Home from './pages/Home/Home'
+import ProtectedRoute from '../src/components/ProtectedRoute/ProtectedRoute'
 
 const router = createBrowserRouter([
   {
@@ -18,8 +19,14 @@ const router = createBrowserRouter([
   },
   
   {
-    path: '/home',
-    element: <Home /> 
+    path: '/',
+    element: <ProtectedRoute />,
+    children: [
+      {
+          path: 'home',
+          element: <Home /> 
+      }
+    ]
   }
 ])
 
