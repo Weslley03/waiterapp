@@ -18,22 +18,28 @@ function Auth(){
 
     const nami = useNavigate();
     const [ error, setError ] = useState('');
+    const [ success, setSuccess ] = useState('');
 
     const { register: signinRegister, handleSubmit: signinHandleSubmit, formState: {errors: signinErrors}} = useForm({
         resolver: zodResolver(SigninSchema) 
       })
 
 
-      async function inHandleSubmit(data){
-        try{
-            const response = await login(data)
-            console.log()
-            Cookie.set('token', response.data.token, {expires: 1})
-            nami('/home')  
-        }catch(err){
-            setError(`houve um erro no inHandleSubmit: ${err.message}`)
+    async function inHandleSubmit(data) {
+        try {
+            console.log('dados sendo enviados:', data)
+            const response = await login(data);
+            if (response.status === 400) {
+                setError(response.data.message);
+            } else {
+                Cookie.set('token', response.data.token, { expires: 1 });
+                setSuccess(response.data.message);
+                nami('/home');
+            }
+        } catch (err) {
+            setError(`houve um erro no login: ${err.message}`);
         }
-      }
+    }
 
     return(
         <AuthContainer>
@@ -68,7 +74,7 @@ function Auth(){
                     />
                     <label>Cliente</label>
 
-                    <input  
+                    <Input  
                         type="radio" 
                         name="userCategory"
                         value='Garsom'
@@ -76,10 +82,10 @@ function Auth(){
                     />
                     <label>Garçom</label>
 
-                    <input 
+                    <Input 
                         type="radio" 
                         name="userCategory"
-                        value='ADM'    
+                        value='Adm'    
                         register={signinRegister}
                     />
                     <label>ADM</label>
@@ -88,6 +94,7 @@ function Auth(){
                 </DivRadio>
 
                 {error && <ErrorSpan> {error} </ErrorSpan>}
+                {success && <p>{success}</p>}
 
                  <a href="http://localhost:5173/cadastrar"> quero criar uma conta </a>
                 
