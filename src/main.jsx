@@ -9,12 +9,12 @@ import ProtectedRoute from '../src/components/ProtectedRoute/ProtectedRoute'
 
 const router = createBrowserRouter([
   {
-    path: '/auth',
+    path: '/Auth',
     element: <Auth /> 
   },
 
   {
-    path: '/cadastrar',
+    path: '/Cadastrar',
     element: <Cadastrar /> 
   },
   
@@ -23,10 +23,15 @@ const router = createBrowserRouter([
     element: <ProtectedRoute />,
     children: [
       {
-          path: 'home',
+          path: '/Home/:categoria',
           element: <Home /> 
       }
     ]
+  },
+
+  {
+    path: '/not-authorized',
+    element: <div>Você não tem permissão para acessar esta página</div>
   }
 ])
 

@@ -31,7 +31,7 @@ function Cadastrar() {
             const response = await cadastrar(data) 
             Cookies.set('token', response.data.token, {expires: 1})
             setSuccess(response.data.message)
-            nami('/home')  
+            nami(`/Home/${response.data.user.userCategory}`)  
         }catch(err){
             setError(err.message)
         }
@@ -86,7 +86,7 @@ function Cadastrar() {
                         type="radio" 
                         name="userCategory"
                         value='Garsom'
-                        defaultValue='Garsom'
+                        defaultValue='Garcom'
                         register={signupRegister}
                     />
                     <label>Garçom</label>
@@ -94,8 +94,8 @@ function Cadastrar() {
                     <Input 
                         type="radio" 
                         name="userCategory"
-                        value='ADM'
-                        defaultValue='ADM'
+                        value='Adm'
+                        defaultValue='Adm'
                         register={signupRegister}
                     />
                     <label>ADM</label>

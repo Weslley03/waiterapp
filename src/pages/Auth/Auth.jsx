@@ -37,8 +37,9 @@ function Auth(){
                 setError(response.data.message);
             } else {
                 Cookie.set('token', response.data.token, { expires: 1 });
+                localStorage.setItem('categoria', response.data.user.userCategory)
                 setSuccess(response.data.message);
-                nami('/home');
+                nami(`/Home/${response.data.user.userCategory}`);
             }
         } catch (err) {
             setError(`houve um erro no login: ${err.message}`);
@@ -85,7 +86,7 @@ function Auth(){
                         type="radio" 
                         name="userCategory"
                         value='Garsom'
-                        defaultValue='Garsom'
+                        defaultValue='Garcom'
                         register={signinRegister}
                     />
                     <label>Garçom</label>
