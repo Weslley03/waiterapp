@@ -1,18 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { InputSpace} from './InputStyled.jsx'
 
-export function Input({type, placeholder, name, register, value: initialValue, disabled,}) {
+export function Input({type, placeholder, name, register, defaultValue, disabled,}) {
 
-    const [ value, setValue ] = useState(initialValue);
-    let inputProps = {
-        type, placeholder, ...register(name), onChange: (e) => setValue(e.target.value), disabled
+    const [ value, setValue ] = useState(defaultValue);
+
+    useEffect(() => {
+        setValue(defaultValue)
+    }, [defaultValue])
+
+    const handleChange = (e) => {
+        setValue(e.target.value)
     }
-
-    if(value) inputProps.value = value;
-
+    
     return(
-        <>
-            <InputSpace {...inputProps} /> 
-        </>
+        <InputSpace
+            type={type}
+            placeholder={placeholder}
+            name={name}
+            {...register(name)}
+            value={value}
+            onChange={handleChange}
+            disabled={disabled}
+        />
     )
 }   

@@ -21,13 +21,17 @@ function Auth(){
     const [ success, setSuccess ] = useState('');
 
     const { register: signinRegister, handleSubmit: signinHandleSubmit, formState: {errors: signinErrors}} = useForm({
-        resolver: zodResolver(SigninSchema) 
+        resolver: zodResolver(SigninSchema),
+        defaultValues: {
+            email: '',
+            password: '',
+            userCategory: ''
+        }
       })
 
 
     async function inHandleSubmit(data) {
         try {
-            console.log('dados sendo enviados:', data)
             const response = await login(data);
             if (response.status === 400) {
                 setError(response.data.message);
@@ -50,6 +54,7 @@ function Auth(){
                         type='email'
                         placeholder='e-mail'
                         name='email'
+                        defaultValue=''
                         register={signinRegister}
                     />
                     {signinErrors.email && <ErrorSpan> {signinErrors.email.message} </ErrorSpan>} 
@@ -58,6 +63,7 @@ function Auth(){
                         type='password'
                         placeholder='senha'
                         name='password'
+                        defaultValue=''
                         register={signinRegister}
                     />
                     {signinErrors.password && <ErrorSpan> {signinErrors.password.message} </ErrorSpan>}
@@ -70,6 +76,7 @@ function Auth(){
                         type="radio" 
                         name="userCategory"
                         value='Cliente'
+                        defaultValue='Cliente'
                         register={signinRegister}
                     />
                     <label>Cliente</label>
@@ -78,6 +85,7 @@ function Auth(){
                         type="radio" 
                         name="userCategory"
                         value='Garsom'
+                        defaultValue='Garsom'
                         register={signinRegister}
                     />
                     <label>Garçom</label>
@@ -86,6 +94,7 @@ function Auth(){
                         type="radio" 
                         name="userCategory"
                         value='Adm'    
+                        defaultValue='Adm'
                         register={signinRegister}
                     />
                     <label>ADM</label>
