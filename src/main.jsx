@@ -6,6 +6,7 @@ import Auth from './pages/Auth/Auth'
 import Cadastrar from './pages/Cadastrar/Cadastrar'
 import Home from './pages/Home/Home'
 import ProtectedRoute from '../src/components/ProtectedRoute/ProtectedRoute'
+import Pedido from './pages/Pedido/Pedido'
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,12 @@ const router = createBrowserRouter([
     children: [
       {
           path: '/Home/:categoria',
-          element: <Home /> 
+          element: <Home />, 
+      },
+
+      {
+        path: '/Home/:categoria/Pedido',
+        element: <Pedido />, 
       }
     ]
   },

@@ -11,9 +11,11 @@ function HomeCliente(){
                             <h2>Lista da Mesa </h2>
                         </div>
 
-                        <p>item</p>
-                        <p>item</p>
-                        <p>item</p>
+                        <p>- Skol 600ml........R$ 10.00</p>
+
+                        <div>
+                            <h3>Total: R$ 10.00</h3>
+                        </div>
                     </MesaLista>
 
                     <Opcoes>
@@ -21,9 +23,9 @@ function HomeCliente(){
                             <h2>Opções</h2>
                         </div>
 
-                        <p>opção</p>
-                        <p>opção</p>
-                        <p>opção</p>
+                        <a href="http://localhost:5173/Home/Cliente/Pedido">
+                         <p>fazer um pedido</p>
+                        </a>
                     </Opcoes>
                 </Container>
         </>

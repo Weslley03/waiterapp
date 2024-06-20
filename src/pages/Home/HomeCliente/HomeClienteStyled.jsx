@@ -8,7 +8,6 @@ export const Container = styled.section`
 
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    
 `;
 
 export const MesaLista = styled.section`
@@ -17,7 +16,7 @@ export const MesaLista = styled.section`
     height: 100%;
     flex-direction: column;
     text-align: center;
-    padding: 1rem;
+    padding: 0.5rem;
 
     div {
         display: flex;
@@ -33,7 +32,8 @@ export const MesaLista = styled.section`
     p {
         flex-direction: row;
         justify-content: space-between;
-        margin-top: 10px;
+        margin-top: 7px;
+        padding: 1rem;
     }
 `;   
 
@@ -43,7 +43,7 @@ export const Opcoes = styled.section`
     height: 100%;
     flex-direction: column;
     text-align: center;
-    padding: 1rem;
+    padding: 0.5rem;
 
     div {
         display: flex;
@@ -59,5 +59,11 @@ export const Opcoes = styled.section`
         flex-direction: row;
         justify-content: space-between;
         margin-top: 10px;
+        text-decoration: none;
+        color: black;
+    }
+
+    a {
+        text-decoration: none; 
     }
 `;
