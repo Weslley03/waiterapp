@@ -1,6 +1,14 @@
+import Navbar from "../../../components/Navbar/Navbar";
+import { Container } from "./HomeClienteStyled";
+
 function HomeCliente(){
     return(
-        <h1>Cliente</h1>
+        <>
+            <Navbar />
+            <Container>
+                
+            </Container>
+        </>
     )
 }
 
