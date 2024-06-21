@@ -7,15 +7,30 @@ import SearchSchema from '../../schemas/SearchSchema.js'
 import { DivPesquisa, Produtos } from "./PedidoStyled.jsx";
 import Button from "../../components/Button/Button.jsx";
 import { ErrorSpan } from "../Auth/AuthStyled.jsx";
+import { useState } from "react";
+import { findProdutoByCategory } from "../../services/pedidoService.js";
 
 function Pedido(){
     
+    const [ produtos, setPodutos ] = useState([])
+    const [ produtoCategory, setProdutoCategory ] = useState('')
+
     const { register: searchRegister, handleSubmit: searchSubmit, formState: {errors: searchErrors}} = useForm({
         resolver: zodResolver(SearchSchema),
         defaultValues: {
             itemPesquisa: ''
         }
     })
+
+    async function handleCategoryClick(category){
+        setProdutoCategory(category)
+        try{
+            const response = await findProdutoByCategory(category) 
+            setPodutos(response);
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     function searchHandleSubmit(){
         //
@@ -45,11 +60,24 @@ function Pedido(){
                 </DivPesquisa>
 
                 <Produtos>
-                    <a href="#">Cervejas....</a>
-                    <a href="#">Demais Bebidas....</a>
-                    <a href="#">Espetos....</a>
-                    <a href="#">Porções....</a>
+                    <a onClick={() => handleCategoryClick('Cervejas')}>Cervejas....</a>
+                    <a onClick={() => handleCategoryClick('Bebidas')}>Demais Bebidas....</a>
+                    <a onClick={() => handleCategoryClick('Espetos')}>Espetos....</a>
+                    <a onClick={() => handleCategoryClick('Porcoes')}>Porções....</a>
 
+                    {produtoCategory && (
+                        <div>
+                            <h2> {produtoCategory} </h2>
+                            {produtos.length > 0 ? (
+                                produtos.map(produ => (
+                                    <p key={produ.id}> {produ.nomeProduto} </p>
+                                ))
+                            ) : (
+                                <p>carregando...</p>
+                            )}
+                        </div>
+                    )}
+                    
                     <div className="carrinho">
                         <h2>Carrinho:</h2>
                     </div>

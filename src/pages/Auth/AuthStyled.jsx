@@ -49,6 +49,7 @@ export const ErrorSpan = styled.span`
 
 export const DivRadio = styled.div`
     padding: 1rem;
+    text-align: center;
 
     input {
         margin-right: 0.5rem; /* Espaço à direita dos inputs */

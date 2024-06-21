@@ -5,7 +5,8 @@ const ProdutoSchema = z.object({
     valorProduto: z.string()
         .transform((value) => parseFloat(value))
         .refine((value) => !isNaN(value), {message: 'valor invalido'})
-        .refine((value) => value > 0, {message: 'valor deve ser positivo'} )
+        .refine((value) => value > 0, {message: 'valor deve ser positivo'} ),
+    produtoCategory: z.string().min(1, { message: 'escolha uma categoria de produto' })
 });
 
 export default ProdutoSchema;

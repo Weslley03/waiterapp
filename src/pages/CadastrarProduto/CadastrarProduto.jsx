@@ -5,14 +5,18 @@ import { CadastrarProdutoContainer, Formulario, OkrSpan } from "./CadastrarProdu
 import { useForm} from "react-hook-form";
 import ProdutoSchema from "../../schemas/ProdutoSchema";
 import { Input } from "../../components/Input/Input";
-import { ErrorSpan } from "../Auth/AuthStyled";
+import { DivRadio, ErrorSpan } from "../Auth/AuthStyled";
 import { cadastrarProdutoService } from "../../services/produtoService";
 import { useEffect, useState } from "react";
 
 function CadastrarProduto(){
 
     const { register: produtoRegister, handleSubmit: produtoHandleSubmit, reset, formState: {errors: produtoErrors} } = useForm({
-        resolver: zodResolver(ProdutoSchema)
+        resolver: zodResolver(ProdutoSchema),
+        defaultValues: {
+            nomeProduto: '',
+            valorProduto: ''
+        }
     })
 
     const [ error, setError ] = useState('')
@@ -33,7 +37,7 @@ function CadastrarProduto(){
             }
             setSucess('cadastro OK')
             setError('');
-            document.forms.reset()
+            reset()
         }catch(err){
             console.log(err)
             setError('houve um problema no cadastro');
@@ -51,7 +55,7 @@ function CadastrarProduto(){
                         type='text'
                         placeholder='qual o nome do produto?'
                         name='nomeProduto'
-                        defaultValue=''
+                        defaultValue=' '
                         register={produtoRegister}
                     />
                     {produtoErrors.nomeProduto && <ErrorSpan> {produtoErrors.nomeProduto.message} </ErrorSpan>}
@@ -65,6 +69,49 @@ function CadastrarProduto(){
                     />
                     {produtoErrors.valorProduto && <ErrorSpan> {produtoErrors.valorProduto.message} </ErrorSpan>}
                     
+                    <DivRadio>
+                    <p>escolha a categoria do produto</p>
+                        <Input 
+                            type='radio'
+                            name='produtoCategory'
+                            value='Cervejas'
+                            defaultValue='Cervejas'
+                            register={produtoRegister}                      
+                        />
+                        <label>Cervejas</label>
+                        {produtoErrors.produtoCategory && <ErrorSpan> {produtoErrors.produtoCategory.message} </ErrorSpan>}
+
+                        <Input 
+                            type='radio'
+                            name='produtoCategory'
+                            value='DemaisBebidas'
+                            defaultValue='DemaisBebidas'
+                            register={produtoRegister}                      
+                        />
+                        <label>Demais Bebidas</label>
+                        {produtoErrors.produtoCategory && <ErrorSpan> {produtoErrors.produtoCategory.message} </ErrorSpan>}
+
+                        <Input 
+                            type='radio'
+                            name='produtoCategory'
+                            value='Espetos'
+                            defaultValue='Espetos'
+                            register={produtoRegister}                      
+                        />
+                        <label>Espetos</label>
+                        {produtoErrors.produtoCategory && <ErrorSpan> {produtoErrors.produtoCategory.message} </ErrorSpan>}
+
+                        <Input 
+                            type='radio'
+                            name='produtoCategory'
+                            value='Porcoes'
+                            defaultValue='Porcoes'
+                            register={produtoRegister}                      
+                        />
+                        <label>Porções</label>
+                        {produtoErrors.produtoCategory && <ErrorSpan> {produtoErrors.produtoCategory.message} </ErrorSpan>}
+                    </DivRadio>
+        
                     <Button
                         type='submit'
                         text='cadastrar'
