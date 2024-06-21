@@ -7,6 +7,7 @@ import Cadastrar from './pages/Cadastrar/Cadastrar'
 import Home from './pages/Home/Home'
 import ProtectedRoute from '../src/components/ProtectedRoute/ProtectedRoute'
 import Pedido from './pages/Pedido/Pedido'
+import CadastrarProduto from './pages/CadastrarProduto/CadastrarProduto'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/Home/:categoria/Pedido',
         element: <Pedido />, 
+      },
+      {
+        path: '/Home/:categoria/CadastrarProduto',
+        element: <CadastrarProduto />, 
       }
     ]
   },

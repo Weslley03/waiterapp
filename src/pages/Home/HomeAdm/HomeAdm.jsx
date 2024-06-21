@@ -1,6 +1,20 @@
+import Navbar from "../../../components/Navbar/Navbar";
+import { AdmContainer } from "./HomeAdmStyled";
+
 function HomeAdm(){
     return(
-        <h1>Adm</h1>
+        <>
+            <Navbar />
+            <AdmContainer>
+                <div className="titulo">
+                    <h1>Opções:</h1>
+                </div>
+                
+                <div className="opcoes">
+                    <a href='http://localhost:5173/Home/Adm/CadastrarProduto'>cadastrar produto</a>
+                </div>
+            </AdmContainer>
+        </>
     )
 }
 
