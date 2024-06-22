@@ -26,7 +26,7 @@ function Pedido(){
         setProdutoCategory(category)
         try{
             const response = await findProdutoByCategory(category) 
-            setPodutos(response);
+            setPodutos(response.data);
         }catch(err){
             console.log(err)
         }
@@ -70,7 +70,7 @@ function Pedido(){
                             <h2> {produtoCategory} </h2>
                             {produtos.length > 0 ? (
                                 produtos.map(produ => (
-                                    <p key={produ.id}> {produ.nomeProduto} </p>
+                                    <p key={produ._id}> {`${produ.nomeProduto}... R$${produ.valorProduto}`} </p>
                                 ))
                             ) : (
                                 <p>carregando...</p>

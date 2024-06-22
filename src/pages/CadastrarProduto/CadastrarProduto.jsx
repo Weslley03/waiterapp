@@ -26,7 +26,7 @@ function CadastrarProduto(){
         if(sucess){ 
             reset()
         }
-    }, [sucess, reset]) 
+    }, [sucess]) 
 
     async function produtoSubmit(data){
         try{
@@ -37,7 +37,6 @@ function CadastrarProduto(){
             }
             setSucess('cadastro OK')
             setError('');
-            reset()
         }catch(err){
             console.log(err)
             setError('houve um problema no cadastro');
