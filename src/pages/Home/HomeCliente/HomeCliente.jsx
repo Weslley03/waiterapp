@@ -1,7 +1,33 @@
+import { useEffect, useState } from "react";
 import Navbar from "../../../components/Navbar/Navbar";
 import { Container, MesaLista, Opcoes } from "./HomeClienteStyled";
 
 function HomeCliente(){
+
+    const [ mesa, setMesa ] = useState([]);
+
+    useEffect(() => {
+        setMesa(getItensMesa());
+    }, []);
+
+    function getItensMesa(){
+        const storageMesa = localStorage.getItem('mesa')
+        if(storageMesa){
+            try{
+                return JSON.parse(storageMesa)
+            }catch(err){
+                console.log("Error parsing JSON from localStorage: ", err);
+                return [];
+            }
+        }
+        return [];
+    }
+
+    function calcularValorMesa(){
+        const mesa = getItensMesa()
+        return mesa.reduce((total, item) => total + item.valorProduto, 0)
+    }
+
     return(
         <>
             <Navbar />
@@ -11,10 +37,16 @@ function HomeCliente(){
                             <h2>Lista da Mesa </h2>
                         </div>
 
-                        <p>- Skol 600ml........R$ 10.00</p>
+                        <div className="mesa">
+                        {mesa.length > 0 ? (
+                            mesa.map((item, index) => (
+                                <p key={index}> {`${item.nomeProduto}... ${item.valorProduto}`} </p>
+                            ))
+                         ) : (
+                            <p>mesa vazia...</p> 
+                        )}
 
-                        <div>
-                            <h3>Total: R$ 10.00</h3>
+                        <h3>valor total: {calcularValorMesa()}</h3>
                         </div>
                     </MesaLista>
 
