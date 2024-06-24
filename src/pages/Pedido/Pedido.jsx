@@ -8,12 +8,14 @@ import { DivPesquisa, Produtos } from "./PedidoStyled.jsx";
 import Button from "../../components/Button/Button.jsx";
 import { ErrorSpan } from "../Auth/AuthStyled.jsx";
 import { useState } from "react";
-import { findProdutoByCategory } from "../../services/pedidoService.js";
+import { findProdutoByCategory, findProdutoByNameService } from "../../services/pedidoService.js";
 
 function Pedido(){
     
     const [ produtos, setPodutos ] = useState([])
     const [ produtoCategory, setProdutoCategory ] = useState('')
+    const [ error, setError ] = useState();
+    const [ searchResults, setSearchResults ] = useState([]);
 
     const { register: searchRegister, handleSubmit: searchSubmit, formState: {errors: searchErrors}} = useForm({
         resolver: zodResolver(SearchSchema),
@@ -32,8 +34,18 @@ function Pedido(){
         }
     }
 
-    function searchHandleSubmit(){
-        //
+    async function searchHandleSubmit(data){
+        try{
+            const response = await findProdutoByNameService({nome: data.itemPesquisa})
+            if(response.status === 400 ){
+                setError(response.data.message)
+            }else{
+                setSearchResults(response.data.produto)
+                setProdutoCategory('')
+            }
+        }catch(err){
+            setError(`houve um erro ao buscar o produto, ${err.message}`)
+        }
     }
 
     return(
@@ -57,6 +69,7 @@ function Pedido(){
 
                         {searchErrors.itemPesquisa && <ErrorSpan> {searchErrors.itemPesquisa.message} </ErrorSpan>}
                     </form>
+                    {error && <ErrorSpan> {error} </ErrorSpan>}
                 </DivPesquisa>
 
                 <Produtos>
@@ -75,6 +88,15 @@ function Pedido(){
                             ) : (
                                 <p>carregando...</p>
                             )}
+                        </div>
+                    )}
+
+                    {searchResults.length > 0 && (
+                        <div>
+                            <h2>Resultados da Pesquisa</h2>
+                            {searchResults.map(produto => (
+                                <p key={produto._id}> {`${produto.nomeProduto}... R$${produto.valorProduto}`} </p>
+                            ))}
                         </div>
                     )}
                     

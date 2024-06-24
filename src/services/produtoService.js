@@ -8,7 +8,6 @@ export async function cadastrarProdutoService(data){
         if(!response){
             return {produto: response, status: false}
         }
-
         return {produto: response, status: true}
     }catch(err){
         console.log(err)
